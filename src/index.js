@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 
 import App from './App';
-import { configureStore } from './redux';
+import { configureStore } from './store';
 
 const preloadedState = {
   donate: 0,

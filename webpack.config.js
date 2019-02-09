@@ -2,6 +2,7 @@ const path = require('path');
 
 const config = {
   entry: './src/index.js',
+  mode: 'development',
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'build'),

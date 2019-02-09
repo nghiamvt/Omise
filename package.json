@@ -9,7 +9,8 @@
   "scripts": {
     "server": "json-server --watch db.json --port 3001",
     "client": "webpack-dev-server",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
@@ -30,9 +31,17 @@
     "babel-preset-react": "^6.24.1",
     "eslint": "^4.8.0",
     "eslint-plugin-react": "^7.4.0",
+    "fetch-mock": "^7.3.0",
     "jest": "^21.2.1",
     "json-server": "^0.14.2",
-    "webpack": "^3.6.0",
-    "webpack-dev-server": "^2.9.1"
+    "redux-mock-store": "^1.5.3",
+    "webpack": "^4.29.3",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.1.14"
+  },
+  "jest": {
+    "setupFiles": [
+      "./setupJest.js"
+    ]
   }
 }
