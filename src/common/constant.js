@@ -4,7 +4,3 @@ export const URL = {
   CHARITIES: '/charities',
   PAYMENTS: '/payments',
 };
-
-export const MODAL_TYPE = {
-  NOTIFICATION: 'Notification',
-};

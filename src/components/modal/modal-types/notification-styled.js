@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
   background-color: #fff;
   border-radius: 4px;
   max-width: 500px;
+  min-width: 210px;
   top: 24px;
   right: 24px;
   position: fixed;

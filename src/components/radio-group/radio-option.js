@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function RadioOption(props) {
+  const id = `${props.name}_${props.value}`;
   return (
-    <label htmlFor={props.value}>
+    <label htmlFor={id}>
       <input
         type="radio"
-        id={props.value}
+        id={id}
         value={props.value}
         name={props.name}
         onChange={props.onChange}

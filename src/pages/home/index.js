@@ -2,12 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Card from 'src/components/card';
-import DonateOptions from 'src/components/donate-options';
 import defaultImg from 'src/images/default-image.jpg';
 import { formatNumber } from 'src/common/utils';
-import { openModal } from 'src/components/modal';
-import { MODAL_TYPE } from 'src/common/constant';
-import { initHomeData, submitPayment } from './widgets';
+import DonateOptions from './donate-options';
+import { initHomeData, handleSubmitFlow } from './widgets';
 import { Wrapper, Title, CharityList } from './styled';
 
 class Home extends React.Component {
@@ -23,21 +21,10 @@ class Home extends React.Component {
 
   componentDidMount() {
     this.props.initHomeData();
-    console.log('MODAL_TYPE.NOTIFICATION', MODAL_TYPE.NOTIFICATION);
   }
 
   handleDonate = ({ charitiesId, amount }) => {
-    this.props.submitPayment({ charitiesId, amount }).then(res => {
-      console.log('res', res);
-      this.props.openModal({
-        id: charitiesId,
-        modalType: MODAL_TYPE.NOTIFICATION,
-        modalProps: {
-          title: 'Success',
-          description: 'Anyone with access can view your invited visitors.',
-        },
-      });
-    });
+    this.props.handleSubmitFlow({ charitiesId, amount });
   };
 
   renderCard = charity => {
@@ -75,5 +62,5 @@ export default connect(
     charities: state.donate.charities,
     allDonation: state.donate.allDonation,
   }),
-  { initHomeData, submitPayment, openModal }
+  { initHomeData, handleSubmitFlow }
 )(Home);
