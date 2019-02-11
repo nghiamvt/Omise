@@ -1,5 +1,4 @@
 import React from 'react';
-import cx from 'classnames';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -14,26 +13,31 @@ const StyledCard = styled.div`
   }
 `;
 
-export default function Card(props) {
-  return (
-    <StyledCard>
-      {props.cover}
-      {props.title && <h3>{props.title}</h3>}
-      {props.children}
-    </StyledCard>
-  );
-}
+export default class Card extends React.PureComponent {
+  static propTypes = {
+    classNames: PropTypes.string,
+    cover: PropTypes.string,
+    title: PropTypes.string,
+    children: PropTypes.node,
+  };
 
-Card.displayName = 'Card';
-Card.propTypes = {
-  classNames: PropTypes.string,
-  cover: PropTypes.element,
-  title: PropTypes.string,
-  children: PropTypes.node
-};
-Card.defaultProps = {
-  classNames: undefined,
-  cover: undefined,
-  title: undefined,
-  children: undefined
-};
+  static defaultProps = {
+    classNames: undefined,
+    cover: undefined,
+    title: undefined,
+    children: undefined,
+  };
+
+  render() {
+    const { cover, title, children } = this.props;
+    return (
+      <StyledCard>
+        {cover && <img src={cover} alt={title} />}
+        <div className="Meta">
+          {title && <h3>{title}</h3>}
+          {children}
+        </div>
+      </StyledCard>
+    );
+  }
+}

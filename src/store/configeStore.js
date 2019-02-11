@@ -19,7 +19,7 @@ export default function configureStore(options) {
     // Initial Store
     preloadedState = undefined,
     // An optional array of Redux store enhancers
-    enhancers = []
+    enhancers = [],
   } = options || {};
 
   let rootReducer;

@@ -3,18 +3,18 @@ import { URL as API_URLS } from 'src/common/constant';
 
 // See https://github.com/redux-utilities/flux-standard-action
 export const apiRequestAction = ({ type }) => ({
-  type: `${type}_REQUEST`
+  type: `${type}_REQUEST`,
 });
 
 export const apiSuccessAction = ({ type, payload }) => ({
   type: `${type}_SUCCESS`,
-  payload
+  payload,
 });
 
 export const apiFailureAction = ({ type, payload }) => ({
   type: `${type}_FAILURE`,
   payload,
-  error: true
+  error: true,
 });
 
 /**
@@ -34,7 +34,7 @@ export const APICreator = ({
   // the root of api url
   baseUrl = API_URLS.BASE_API,
   // custom http headers
-  headers = {}
+  headers = {},
 }) => {
   const thunkAction = dispatch => {
     return new Promise((resolve, reject) => {
@@ -45,7 +45,7 @@ export const APICreator = ({
       return fetch(finalUrl, {
         method,
         headers: { 'Content-Type': 'application/json', ...headers },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
       })
         .then(response => {
           // Shorthand to check for an HTTP 2xx response status.
@@ -76,7 +76,7 @@ export const APIGetCreator = ({ type, url }) => payload => {
   return APICreator({
     type,
     url,
-    ...payload
+    ...payload,
   });
 };
 
@@ -84,8 +84,7 @@ export const APIPostCreator = ({ type, url, data }) => payload => {
   return APICreator({
     type,
     url,
-    ...payload,
-    data: Object.assign({}, data, payload.data),
-    method: 'POST'
+    data: Object.assign({}, data, payload),
+    method: 'POST',
   });
 };

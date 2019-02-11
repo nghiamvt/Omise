@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Card from 'src/components/card';
+import DonateOptions from 'src/components/donate-options';
 import defaultImg from 'src/images/default-image.jpg';
 import { formatNumber } from 'src/common/utils';
-import { initHomeData } from './widgets';
+import { initHomeData, submitPayment } from './widgets';
 
 const Wrapper = styled.div`
   text-align: center;
@@ -20,23 +21,27 @@ const CharityList = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-`;
 
-const MetaInfo = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-`;
+  .Meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
 
-const DonateBtn = styled.button`
-  color: #1b50ea;
-  border: 1px solid #1b50ea;
-  border-radius: 5px;
-  border-radius: 2px;
-  padding: 5px 10px;
-  &:hover {
-    cursor: pointer;
+    button {
+      background-color: #fff;
+      color: #1b50ea;
+      border: 1px solid #1b50ea;
+      border-radius: 5px;
+      border-radius: 2px;
+      padding: 5px 10px;
+      &:hover {
+        cursor: pointer;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
   }
 `;
 
@@ -44,30 +49,38 @@ class Home extends React.Component {
   static propTypes = {
     initHomeData: PropTypes.func.isRequired,
     allDonation: PropTypes.number.isRequired,
-    charities: PropTypes.array
+    charities: PropTypes.array,
   };
 
   static defaultProps = {
-    charities: []
+    charities: [],
   };
 
   componentDidMount() {
     this.props.initHomeData();
   }
 
-  renderCharities = props => {
+  handleDonate = ({ charitiesId, amount }) => {
+    this.props.submitPayment({ charitiesId, amount });
+  };
+
+  renderCard = charity => {
+    // TODO: if item.image is not found, use defaultImg
+    return (
+      <Card key={charity.id} title={charity.name} cover={defaultImg}>
+        <button type="button">Donate</button>
+        <DonateOptions
+          id={charity.id}
+          onSubmit={this.handleDonate}
+          options={[10, 20, 50, 100, 500]}
+        />
+      </Card>
+    );
+  };
+
+  renderCharityList = props => {
     // TODO: handle Loading, No data
-    console.log('props.charities', props.charities);
-    return props.charities.map(item => {
-      return (
-        <Card key={item.id} cover={<img src={defaultImg} alt={item.image} />}>
-          <MetaInfo>
-            <h3>{item.name}</h3>
-            <DonateBtn type="button">Donate</DonateBtn>
-          </MetaInfo>
-        </Card>
-      );
-    });
+    return <CharityList>{props.charities.map(this.renderCard)}</CharityList>;
   };
 
   render() {
@@ -75,7 +88,7 @@ class Home extends React.Component {
       <Wrapper>
         <Title>Omise Tamboon React</Title>
         <p>All donations: {formatNumber(this.props.allDonation)}</p>
-        <CharityList>{this.renderCharities(this.props)}</CharityList>
+        {this.renderCharityList(this.props)}
       </Wrapper>
     );
   }
@@ -84,7 +97,7 @@ class Home extends React.Component {
 export default connect(
   state => ({
     charities: state.charities,
-    allDonation: state.allDonation
+    allDonation: state.allDonation,
   }),
-  { initHomeData }
+  { initHomeData, submitPayment }
 )(Home);

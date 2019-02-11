@@ -3,6 +3,5 @@ export function isPlainObject(obj) {
 }
 
 export function formatNumber(x) {
-  // return x.toLocaleString();
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
