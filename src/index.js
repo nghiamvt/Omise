@@ -4,25 +4,21 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 
 import Home from 'src/pages/home';
-import reducer from 'src/pages/home/widgets';
+import homeReducer from 'src/pages/home/widgets';
+import { modalReducer, ModalManager } from 'src/components/modal';
 import { configureStore } from 'src/store';
 
-const preloadedState = {
-  allDonation: 0,
-  message: '',
-  charities: [],
-};
-
 const store = configureStore({
-  reducer,
+  reducer: { donate: homeReducer, modals: modalReducer },
   middleware: [thunk],
   devTools: process.env.NODE_ENV !== 'production',
-  preloadedState,
+  preloadedState: undefined,
 });
 
 render(
   <Provider store={store}>
     <Home />
+    <ModalManager />
   </Provider>,
   document.getElementById('root')
 );

@@ -29,7 +29,11 @@ export const initHomeData = () => dispatch => {
   return Promise.all([dispatch(loadCharities()), dispatch(loadPayments())]);
 };
 
-const reducer = createReducer([], {
+const initialState = {
+  allDonation: 0,
+  charities: [],
+};
+const reducer = createReducer(initialState, {
   [loadCharities().SUCCESS]: (state, action) => {
     return { ...state, charities: action.payload };
   },

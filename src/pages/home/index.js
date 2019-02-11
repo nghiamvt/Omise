@@ -1,49 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
 import Card from 'src/components/card';
 import DonateOptions from 'src/components/donate-options';
 import defaultImg from 'src/images/default-image.jpg';
 import { formatNumber } from 'src/common/utils';
+import { openModal } from 'src/components/modal';
+import { MODAL_TYPE } from 'src/common/constant';
 import { initHomeData, submitPayment } from './widgets';
-
-const Wrapper = styled.div`
-  text-align: center;
-  color: #666d87;
-`;
-
-const Title = styled.h1`
-  font-size: 1.5em;
-`;
-
-const CharityList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-
-  .Meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-
-    button {
-      background-color: #fff;
-      color: #1b50ea;
-      border: 1px solid #1b50ea;
-      border-radius: 5px;
-      border-radius: 2px;
-      padding: 5px 10px;
-      &:hover {
-        cursor: pointer;
-      }
-      &:focus {
-        outline: none;
-      }
-    }
-  }
-`;
+import { Wrapper, Title, CharityList } from './styled';
 
 class Home extends React.Component {
   static propTypes = {
@@ -58,10 +23,21 @@ class Home extends React.Component {
 
   componentDidMount() {
     this.props.initHomeData();
+    console.log('MODAL_TYPE.NOTIFICATION', MODAL_TYPE.NOTIFICATION);
   }
 
   handleDonate = ({ charitiesId, amount }) => {
-    this.props.submitPayment({ charitiesId, amount });
+    this.props.submitPayment({ charitiesId, amount }).then(res => {
+      console.log('res', res);
+      this.props.openModal({
+        id: charitiesId,
+        modalType: MODAL_TYPE.NOTIFICATION,
+        modalProps: {
+          title: 'Success',
+          description: 'Anyone with access can view your invited visitors.',
+        },
+      });
+    });
   };
 
   renderCard = charity => {
@@ -96,8 +72,8 @@ class Home extends React.Component {
 
 export default connect(
   state => ({
-    charities: state.charities,
-    allDonation: state.allDonation,
+    charities: state.donate.charities,
+    allDonation: state.donate.allDonation,
   }),
-  { initHomeData, submitPayment }
+  { initHomeData, submitPayment, openModal }
 )(Home);

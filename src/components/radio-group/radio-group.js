@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import RadioOption from './radioOption';
+import RadioOption from './radio-option';
 
 function RadioGroup(props) {
   return React.Children.map(props.children, child => {
