@@ -7,28 +7,27 @@ import {
   apiFailureAction,
   APICreator,
   APIGetCreator,
-  APIPostCreator,
+  APIPostCreator
 } from './callApi';
 
 describe('callApi', () => {
   describe('callApi Actions', () => {
     test('apiRequestAction', () => {
       expect(apiRequestAction({ type: 'TODO' })).toEqual({
-        type: 'TODO_REQUEST',
+        type: 'TODO_REQUEST'
       });
     });
-
     test('apiSuccessAction with payload', () => {
       const payload = { id: 1, text: 'api test' };
       expect(apiSuccessAction({ type: 'TODO', payload })).toEqual({
         type: 'TODO_SUCCESS',
-        payload,
+        payload
       });
     });
 
     test('apiSuccessAction without payload', () => {
       expect(apiSuccessAction({ type: 'TODO' })).toEqual({
-        type: 'TODO_SUCCESS',
+        type: 'TODO_SUCCESS'
       });
     });
 
@@ -37,7 +36,7 @@ describe('callApi', () => {
       expect(apiFailureAction({ type: 'TODO', payload: errMsg })).toEqual({
         type: 'TODO_FAILURE',
         error: true,
-        payload: errMsg,
+        payload: errMsg
       });
     });
   });
@@ -59,21 +58,28 @@ describe('callApi', () => {
       });
     });
 
+    test('calls api without url', () => {
+      store.dispatch(APICreator({ type: 'ADD_TODO' })).catch(e => {
+        expect(e.message).toEqual('url is required');
+        expect(store.getActions()).toEqual([]);
+      });
+    });
+
     test('calls api successful', () => {
       const response = { data: { id: 1 } };
       fetchMock.mock('*', response);
       const expectedAction = [
         apiRequestAction({ type }),
-        apiSuccessAction({ type, payload: response.data }),
+        apiSuccessAction({ type, payload: response.data })
       ];
       store
         .dispatch(
           APICreator({
             type,
-            url: '/success',
+            url: '/success'
           })
         )
-        .then(() => {
+        .catch(() => {
           expect(store.getActions()).toEqual(expectedAction);
         });
     });
@@ -83,13 +89,13 @@ describe('callApi', () => {
       fetchMock.mock('*', { status: 404 });
       const expectedAction = [
         apiRequestAction({ type }),
-        apiFailureAction({ type, payload: 'Not Found', error: true }),
+        apiFailureAction({ type, payload: 'Not Found', error: true })
       ];
       store
         .dispatch(
           APICreator({
             type,
-            url: '/failure',
+            url: '/failure'
           })
         )
         .catch(e => {
@@ -104,9 +110,9 @@ describe('callApi', () => {
       const getPosts = APIGetCreator({ type, url: '/getTodo' });
       const expectedAction = [
         apiRequestAction({ type }),
-        apiSuccessAction({ type, payload: response.data }),
+        apiSuccessAction({ type, payload: response.data })
       ];
-      store.dispatch(getPosts(response.data)).then(() => {
+      store.dispatch(getPosts(response.data)).catch(() => {
         expect(store.getActions()).toEqual(expectedAction);
       });
     });
@@ -118,9 +124,9 @@ describe('callApi', () => {
       const getPosts = APIPostCreator({ type, url: '/addTodo' });
       const expectedAction = [
         apiRequestAction({ type }),
-        apiSuccessAction({ type, payload: response.data }),
+        apiSuccessAction({ type, payload: response.data })
       ];
-      store.dispatch(getPosts(response.data)).then(() => {
+      store.dispatch(getPosts(response.data)).catch(() => {
         expect(store.getActions()).toEqual(expectedAction);
       });
     });

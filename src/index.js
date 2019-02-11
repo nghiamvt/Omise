@@ -4,37 +4,26 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 
 import App from './App';
-import { configureStore } from './store';
+import Home from 'src/pages/home';
+import reducer from 'src/pages/home/widgets';
+import { configureStore } from 'src/store';
 
 const preloadedState = {
-  donate: 0,
+  allDonation: 0,
   message: '',
+  charities: []
 };
-const rootReducer = function(_state, action) {
-  switch (action.type) {
-    case 'UPDATE_TOTAL_DONATE':
-      return Object.assign({}, _state, {
-        donate: _state.donate + action.amount,
-      });
-    case 'UPDATE_MESSAGE':
-      return Object.assign({}, _state, {
-        message: action.message,
-      });
 
-    default:
-      return _state;
-  }
-};
 const store = configureStore({
-  reducer: rootReducer,
+  reducer,
   middleware: [thunk],
   devTools: process.env.NODE_ENV !== 'production',
-  preloadedState,
+  preloadedState
 });
 
 render(
   <Provider store={store}>
-    <App />
+    <Home />
   </Provider>,
   document.getElementById('root')
 );

@@ -1,6 +1,6 @@
 import { combineReducers, compose, applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { isPlainObject } from '../utils/object';
+import { isPlainObject } from 'src/common/utils';
 /**
  * A wrapper of `createStore()` function
  *
@@ -19,7 +19,7 @@ export default function configureStore(options) {
     // Initial Store
     preloadedState = undefined,
     // An optional array of Redux store enhancers
-    enhancers = [],
+    enhancers = []
   } = options || {};
 
   let rootReducer;

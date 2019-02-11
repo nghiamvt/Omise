@@ -6,7 +6,7 @@ const config = {
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'build'),
-    publicPath: 'build',
+    publicPath: 'build'
   },
 
   devtool: 'inline-source-map',
@@ -17,7 +17,13 @@ const config = {
     port: 3000,
     historyApiFallback: true,
     disableHostCheck: true,
-    contentBase: 'public',
+    contentBase: 'public'
+  },
+
+  resolve: {
+    alias: {
+      src: path.resolve(__dirname, 'src')
+    }
   },
 
   module: {
@@ -26,11 +32,19 @@ const config = {
         test: /\.js$/,
         exclude: [/node_modules/],
         use: {
-          loader: 'babel-loader',
-        },
+          loader: 'babel-loader'
+        }
       },
-    ],
-  },
+      {
+        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+        loader: 'url-loader',
+        options: {
+          limit: 10000, // bytes
+          name: 'images/[name].[hash:8].[ext]'
+        }
+      }
+    ]
+  }
 };
 
 module.exports = config;
