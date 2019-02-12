@@ -31,7 +31,7 @@ export default class Card extends React.PureComponent {
   render() {
     const { cover, title, children } = this.props;
     return (
-      <StyledCard>
+      <StyledCard className="Card">
         {cover && <img src={cover} alt={title} />}
         <div className="Meta">
           {title && <h3>{title}</h3>}

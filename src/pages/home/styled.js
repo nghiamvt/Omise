@@ -3,6 +3,10 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   text-align: center;
   color: #666d87;
+
+  .Card {
+    position: relative;
+  }
 `;
 
 export const Title = styled.h1`

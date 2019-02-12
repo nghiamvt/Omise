@@ -3,15 +3,19 @@ import PropTypes from 'prop-types';
 import RadioOption from './radio-option';
 
 function RadioGroup(props) {
-  return React.Children.map(props.children, child => {
-    if (child.type === RadioOption)
-      return React.cloneElement(child, {
-        checked: props.value === child.props.value,
-        name: props.name,
-        onChange: props.onChange,
-      });
-    return child;
-  });
+  return (
+    <div className="RadioGroup">
+      {React.Children.map(props.children, child => {
+        if (child.type === RadioOption)
+          return React.cloneElement(child, {
+            checked: props.value === child.props.value,
+            name: props.name,
+            onChange: props.onChange,
+          });
+        return child;
+      })}
+    </div>
+  );
 }
 
 RadioGroup.propTypes = {

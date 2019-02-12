@@ -9,6 +9,10 @@ import { initHomeData, handleSubmitFlow } from './widgets';
 import { Wrapper, Title, CharityList } from './styled';
 
 class Home extends React.Component {
+  state = {
+    selectedCharity: undefined,
+  };
+
   static propTypes = {
     initHomeData: PropTypes.func.isRequired,
     allDonation: PropTypes.number.isRequired,
@@ -23,20 +27,38 @@ class Home extends React.Component {
     this.props.initHomeData();
   }
 
-  handleDonate = ({ charitiesId, amount }) => {
-    this.props.handleSubmitFlow({ charitiesId, amount });
+  handleDonate = ({ charitiesId, charitiesName, amount }) => {
+    this.props
+      .handleSubmitFlow({ charitiesId, charitiesName, amount })
+      .then(() => {
+        this.setState({ selectedCharity: undefined });
+      });
+  };
+
+  showDonateOptions = id => {
+    this.setState({ selectedCharity: id });
   };
 
   renderCard = charity => {
     // TODO: if item.image is not found, use defaultImg
+    const { selectedCharity } = this.state;
     return (
       <Card key={charity.id} title={charity.name} cover={defaultImg}>
-        <button type="button">Donate</button>
-        <DonateOptions
-          id={charity.id}
-          onSubmit={this.handleDonate}
-          options={[10, 20, 50, 100, 500]}
-        />
+        <button
+          type="button"
+          onClick={() => this.showDonateOptions(charity.id)}
+        >
+          Donate
+        </button>
+        {selectedCharity === charity.id && (
+          <DonateOptions
+            id={charity.id}
+            onSubmit={params =>
+              this.handleDonate({ ...params, charitiesName: charity.name })
+            }
+            options={[10, 20, 50, 100, 500]}
+          />
+        )}
       </Card>
     );
   };

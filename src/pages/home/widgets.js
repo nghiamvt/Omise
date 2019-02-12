@@ -30,13 +30,17 @@ export const initHomeData = () => dispatch => {
   return Promise.all([dispatch(loadCharities()), dispatch(loadPayments())]);
 };
 
-export const handleSubmitFlow = ({ charitiesId, amount }) => dispatch => {
-  dispatch(submitPayment({ charitiesId, amount })).then(res => {
+export const handleSubmitFlow = ({
+  charitiesId,
+  charitiesName,
+  amount,
+}) => dispatch => {
+  return dispatch(submitPayment({ charitiesId, amount })).then(res => {
     const modalProps = {
-      title: 'Success',
+      title: charitiesName,
       description: `Thanks for donate ${res.amount} USD`,
     };
-    dispatch(showNotification({ id: charitiesId, modalProps, timeout: 4500 }));
+    dispatch(showNotification({ id: res.id, modalProps, timeout: 4500 }));
   });
 };
 

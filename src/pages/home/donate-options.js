@@ -1,6 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { RadioGroup, RadioOption } from 'src/components/radio-group';
+
+const Wrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+  opacity: 0.95;
+  justify-content: space-evenly;
+  padding: 5% 2;
+`;
 
 export default class DonateOptions extends React.PureComponent {
   state = {
@@ -39,8 +55,8 @@ export default class DonateOptions extends React.PureComponent {
     const { options, onSubmit, id } = this.props;
     const { selectedValue } = this.state;
     return (
-      <div className="DonateOptions">
-        <h4>Select the amount to donate (USD)</h4>
+      <Wrapper className="DonateOptions">
+        <span>Select the amount to donate (USD)</span>
         <RadioGroup
           name={`donate_${id}`}
           onChange={this.handleChange}
@@ -59,7 +75,7 @@ export default class DonateOptions extends React.PureComponent {
         >
           Pay
         </button>
-      </div>
+      </Wrapper>
     );
   }
 }

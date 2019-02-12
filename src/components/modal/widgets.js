@@ -8,7 +8,7 @@ export const openModal = createAction('MODAL_OPEN');
 export const closeModal = createAction('MODAL_CLOSE');
 
 export const showNotification = ({ id, modalProps, timeout }) => dispatch => {
-  dispatch(openModal({ id, modalType: 'Notification', modalProps }));
+  dispatch(openModal({ id, modalType: MODAL_TYPE.NOTIFICATION, modalProps }));
   if (timeout) {
     setTimeout(() => {
       dispatch(closeModal({ id }));
