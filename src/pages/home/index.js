@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Card from 'src/components/card';
-import defaultImg from 'src/images/default-image.jpg';
 import { formatNumber } from 'src/common/utils';
+import { Button } from 'src/common/styled';
 import DonateOptions from './donate-options';
 import { initHomeData, handleSubmitFlow } from './widgets';
 import { Wrapper, Title, CharityList } from './styled';
 
+const images = require.context('../../images', true);
 class Home extends React.Component {
   state = {
     selectedCharity: undefined,
@@ -35,24 +36,23 @@ class Home extends React.Component {
       });
   };
 
-  showDonateOptions = id => {
+  selectCharity = id => {
     this.setState({ selectedCharity: id });
   };
 
   renderCard = charity => {
-    // TODO: if item.image is not found, use defaultImg
     const { selectedCharity } = this.state;
     return (
-      <Card key={charity.id} title={charity.name} cover={defaultImg}>
-        <button
-          type="button"
-          onClick={() => this.showDonateOptions(charity.id)}
-        >
-          Donate
-        </button>
+      <Card
+        key={charity.id}
+        title={charity.name}
+        cover={images(`./${charity.image}`)}
+      >
+        <Button onClick={() => this.selectCharity(charity.id)}>DONATE</Button>
         {selectedCharity === charity.id && (
           <DonateOptions
             id={charity.id}
+            onClose={() => this.selectCharity(undefined)}
             onSubmit={params =>
               this.handleDonate({ ...params, charitiesName: charity.name })
             }
@@ -72,7 +72,7 @@ class Home extends React.Component {
     return (
       <Wrapper>
         <Title>Omise Tamboon React</Title>
-        <p>All donations: {formatNumber(this.props.allDonation)}</p>
+        <p>All donations: {formatNumber(this.props.allDonation)} USD</p>
         {this.renderCharityList(this.props)}
       </Wrapper>
     );

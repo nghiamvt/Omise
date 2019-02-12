@@ -6,13 +6,12 @@ function RadioGroup(props) {
   return (
     <div className="RadioGroup">
       {React.Children.map(props.children, child => {
-        if (child.type === RadioOption)
-          return React.cloneElement(child, {
-            checked: props.value === child.props.value,
-            name: props.name,
-            onChange: props.onChange,
-          });
-        return child;
+        if (child.type.displayName !== RadioOption.displayName) return child;
+        return React.cloneElement(child, {
+          checked: props.value === child.props.value,
+          name: props.name,
+          onChange: props.onChange,
+        });
       })}
     </div>
   );

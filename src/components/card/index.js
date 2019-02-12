@@ -7,6 +7,17 @@ const StyledCard = styled.div`
   margin: 20px;
   border: 1px solid #e4e8eb;
   border-radius: 5px;
+  box-shadow: 0 2px 4px 0 rgba(200, 200, 200, 0.5);
+
+  &:hover {
+    box-shadow: 0 13px 22px 0 rgba(200, 200, 200, 0.5);
+  }
+
+  h3 {
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0;
+  }
 
   img {
     width: 100%;

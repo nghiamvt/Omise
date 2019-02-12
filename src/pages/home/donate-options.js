@@ -1,22 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { RadioGroup, RadioOption } from 'src/components/radio-group';
-
-const Wrapper = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #ffffff;
-  opacity: 0.95;
-  justify-content: space-evenly;
-  padding: 5% 2;
-`;
+import { CloseBtn } from 'src/common/styled';
+import { StyledDonateOptions, FlatButton } from './styled';
 
 export default class DonateOptions extends React.PureComponent {
   state = {
@@ -27,10 +13,11 @@ export default class DonateOptions extends React.PureComponent {
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     options: PropTypes.array.isRequired,
     onSubmit: PropTypes.func,
+    onClose: PropTypes.func,
   };
 
   static defaultProps = {
-    onSubmit: undefined,
+    onClose: undefined,
   };
 
   handleChange = e => {
@@ -52,11 +39,12 @@ export default class DonateOptions extends React.PureComponent {
   };
 
   render() {
-    const { options, onSubmit, id } = this.props;
+    const { options, onSubmit, id, onClose } = this.props;
     const { selectedValue } = this.state;
     return (
-      <Wrapper className="DonateOptions">
-        <span>Select the amount to donate (USD)</span>
+      <StyledDonateOptions>
+        <CloseBtn onClick={onClose} />
+        <h3>Select the amount to donate (USD)</h3>
         <RadioGroup
           name={`donate_${id}`}
           onChange={this.handleChange}
@@ -64,18 +52,18 @@ export default class DonateOptions extends React.PureComponent {
         >
           {options.map(i => (
             <RadioOption key={i} value={i}>
-              {i}
+              <span>{i}</span>
             </RadioOption>
           ))}
         </RadioGroup>
-        <button
-          type="button"
+        <FlatButton
+          className="FlatBtn"
           disabled={!selectedValue}
           onClick={() => this.handleOnSubmit(id, onSubmit, selectedValue)}
         >
-          Pay
-        </button>
-      </Wrapper>
+          DONATE THIS EVENT
+        </FlatButton>
+      </StyledDonateOptions>
     );
   }
 }

@@ -1,22 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-
-const Label = styled.label`
-  cursor: pointer;
-  width: 50px;
-  display: inline-flex;
-  align-items: center;
-  input {
-    margin-right: 5px;
-    cursor: pointer;
-  }
-`;
 
 function RadioOption(props) {
   const id = `${props.name}_${props.value}`;
   return (
-    <Label htmlFor={id}>
+    <label htmlFor={id} className={RadioOption.displayName}>
       <input
         type="radio"
         id={id}
@@ -26,7 +14,7 @@ function RadioOption(props) {
         checked={props.checked}
       />
       {props.children}
-    </Label>
+    </label>
   );
 }
 
@@ -44,5 +32,6 @@ RadioOption.propTypes = {
 RadioOption.defaultProps = {
   checked: false,
 };
+RadioOption.displayName = 'RadioOption';
 
 export default RadioOption;

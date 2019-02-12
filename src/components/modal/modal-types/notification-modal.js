@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Wrapper, CloseBtn, Title, Description } from './notification-styled';
+import { CloseBtn } from 'src/common/styled';
+import { Wrapper, Title, Description } from './notification-styled';
 
 function NotificationModal(props) {
   return (

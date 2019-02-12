@@ -56,31 +56,3 @@ export const Description = styled.div`
   font-size: 14px;
   color: #878787;
 `;
-
-export const CloseBtn = styled.div`
-  position: absolute;
-  right: 15px;
-  top: 13px;
-  width: 15px;
-  height: 15px;
-  opacity: 0.3;
-  cursor: pointer;
-  &:hover {
-    opacity: 1;
-  }
-  &:before,
-  &:after {
-    position: absolute;
-    left: 8px;
-    content: ' ';
-    height: 15px;
-    width: 2px;
-    background-color: #333;
-  }
-  &:before {
-    transform: rotate(45deg);
-  }
-  &:after {
-    transform: rotate(-45deg);
-  }
-`;

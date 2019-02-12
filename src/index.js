@@ -3,10 +3,10 @@ import { render } from 'react-dom';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 
-import Home from 'src/pages/home';
 import homeReducer from 'src/pages/home/widgets';
 import { modalReducer, ModalManager } from 'src/components/modal';
 import { configureStore } from 'src/store';
+import App from './App';
 
 const store = configureStore({
   reducer: { donate: homeReducer, modals: modalReducer },
@@ -17,7 +17,7 @@ const store = configureStore({
 
 render(
   <Provider store={store}>
-    <Home />
+    <App />
     <ModalManager />
   </Provider>,
   document.getElementById('root')
