@@ -3,10 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { openModal, closeModal } from './widgets';
 import { NotificationModal } from './modal-types';
-
-export const MODAL_TYPE = {
-  NOTIFICATION: 'Notification',
-};
+import { MODAL_TYPE } from './widgets';
 
 const MODAL_COMPONENTS = {
   [MODAL_TYPE.NOTIFICATION]: NotificationModal,
@@ -15,6 +12,7 @@ const MODAL_COMPONENTS = {
 
 function ModalManager(props) {
   if (!props.modals.length) return null;
+
   return props.modals
     .filter(m => m.modalType)
     .map(m => {
@@ -33,6 +31,7 @@ function ModalManager(props) {
 
 ModalManager.propTypes = {
   modals: PropTypes.array.isRequired,
+  openModal: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
 };
 

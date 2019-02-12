@@ -7,7 +7,7 @@ function NotificationModal(props) {
     <Wrapper>
       <Title>{props.title}</Title>
       <Description>{props.description}</Description>
-      <CloseBtn onClick={() => props.onClose(props.id)} />
+      <CloseBtn onClick={() => props.onClose({ id: props.id })} />
     </Wrapper>
   );
 }

@@ -1,7 +1,7 @@
 import { APIGetCreator, APIPostCreator } from '../../store/callApi';
 import { URL } from 'src/common/constant';
 import { createReducer } from 'src/store';
-import { openModal, closeModal, MODAL_TYPE } from 'src/components/modal';
+import { showNotification } from 'src/components/modal';
 
 /**
  * 95% of the time, it's only one reducer/actions pair that ever needs
@@ -32,19 +32,11 @@ export const initHomeData = () => dispatch => {
 
 export const handleSubmitFlow = ({ charitiesId, amount }) => dispatch => {
   dispatch(submitPayment({ charitiesId, amount })).then(res => {
-    dispatch(
-      openModal({
-        id: charitiesId,
-        modalType: MODAL_TYPE.NOTIFICATION,
-        modalProps: {
-          title: 'Success',
-          description: `Thanks for donate ${amount} USD`,
-        },
-      })
-    );
-    setTimeout(() => {
-      dispatch(closeModal(charitiesId));
-    }, 4500);
+    const modalProps = {
+      title: 'Success',
+      description: `Thanks for donate ${res.amount} USD`,
+    };
+    dispatch(showNotification({ id: charitiesId, modalProps, timeout: 4500 }));
   });
 };
 

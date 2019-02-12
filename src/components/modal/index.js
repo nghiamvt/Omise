@@ -1,4 +1,16 @@
-import modalReducer, { openModal, closeModal } from './widgets';
-import ModalManager, { MODAL_TYPE } from './modal-manager';
+import modalReducer, {
+  openModal,
+  closeModal,
+  showNotification,
+  MODAL_TYPE,
+} from './widgets';
+import ModalManager from './modal-manager';
 
-export { modalReducer, openModal, closeModal, ModalManager, MODAL_TYPE };
+export {
+  modalReducer,
+  openModal,
+  closeModal,
+  ModalManager,
+  MODAL_TYPE,
+  showNotification,
+};

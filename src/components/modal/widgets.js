@@ -1,7 +1,20 @@
 import { createAction, createReducer } from 'src/store';
 
+export const MODAL_TYPE = {
+  NOTIFICATION: 'Notification',
+};
+
 export const openModal = createAction('MODAL_OPEN');
 export const closeModal = createAction('MODAL_CLOSE');
+
+export const showNotification = ({ id, modalProps, timeout }) => dispatch => {
+  dispatch(openModal({ id, modalType: 'Notification', modalProps }));
+  if (timeout) {
+    setTimeout(() => {
+      dispatch(closeModal({ id }));
+    }, timeout);
+  }
+};
 
 const initialState = [];
 const modalReducer = createReducer(initialState, {
@@ -11,8 +24,7 @@ const modalReducer = createReducer(initialState, {
   },
   [closeModal]: (state, action) => {
     const { id } = action.payload;
-    if (id === -1) return initialState;
-    return id ? state.filter(m => m.id !== id) : state.slice(0, -1);
+    return id === -1 ? initialState : state.filter(m => m.id !== id);
   },
 });
 export default modalReducer;
