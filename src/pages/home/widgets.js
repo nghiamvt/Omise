@@ -36,7 +36,7 @@ export const homeLoadingSelector = createLoadingSelector([
   loadPayments().TYPE,
 ]);
 
-export const handleSubmitFlow = ({
+export const handleSubmitDonate = ({
   charitiesId,
   charitiesName,
   amount,

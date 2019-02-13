@@ -24,21 +24,7 @@ const StyledCard = styled.div`
   }
 `;
 
-export default class Card extends React.PureComponent {
-  static propTypes = {
-    classNames: PropTypes.string,
-    cover: PropTypes.string,
-    title: PropTypes.string,
-    children: PropTypes.node,
-  };
-
-  static defaultProps = {
-    classNames: undefined,
-    cover: undefined,
-    title: undefined,
-    children: undefined,
-  };
-
+class Card extends React.PureComponent {
   render() {
     const { cover, title, children } = this.props;
     return (
@@ -52,3 +38,19 @@ export default class Card extends React.PureComponent {
     );
   }
 }
+
+Card.propTypes = {
+  classNames: PropTypes.string,
+  cover: PropTypes.string,
+  title: PropTypes.string,
+  children: PropTypes.node,
+};
+
+Card.defaultProps = {
+  classNames: undefined,
+  cover: undefined,
+  title: undefined,
+  children: undefined,
+};
+
+export default Card;

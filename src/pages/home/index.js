@@ -2,86 +2,49 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import Card from 'src/components/card';
 import { formatNumber } from 'src/common/utils';
-import { Button } from 'src/common/styled';
 import Loading from 'src/components/loading';
 
-import DonateOptions from './donate-options';
-import { initHomeData, handleSubmitFlow, homeLoadingSelector } from './widgets';
-import { Wrapper, Title, CharityList } from './styled';
+import {
+  initHomeData,
+  handleSubmitDonate,
+  homeLoadingSelector,
+} from './widgets';
+import { HomeWrapper, Title } from './styled';
+import CharityList from './charity-list';
 
-const images = require.context('../../images', true);
 class Home extends React.Component {
-  state = {
-    selectedCharity: undefined,
-  };
-
-  static propTypes = {
-    initHomeData: PropTypes.func.isRequired,
-    allDonation: PropTypes.number.isRequired,
-    charities: PropTypes.array,
-  };
-
-  static defaultProps = {
-    charities: [],
-  };
-
   componentDidMount() {
     this.props.initHomeData();
   }
 
   handleDonate = ({ charitiesId, charitiesName, amount }) => {
-    this.props
-      .handleSubmitFlow({ charitiesId, charitiesName, amount })
-      .then(() => {
-        this.setState({ selectedCharity: undefined });
-      });
-  };
-
-  selectCharity = id => {
-    this.setState({ selectedCharity: id });
-  };
-
-  renderCard = charity => {
-    const { selectedCharity } = this.state;
-    return (
-      <Card
-        key={charity.id}
-        title={charity.name}
-        cover={images(`./${charity.image}`)}
-      >
-        {selectedCharity === charity.id && (
-          <DonateOptions
-            id={charity.id}
-            onClose={() => this.selectCharity(undefined)}
-            onSubmit={params =>
-              this.handleDonate({ ...params, charitiesName: charity.name })
-            }
-            options={[10, 20, 50, 100, 500]}
-          />
-        )}
-        <Button onClick={() => this.selectCharity(charity.id)}>DONATE</Button>
-      </Card>
-    );
-  };
-
-  renderCharityList = props => {
-    if (props.isLoading) return <Loading />;
-    if (!props.charities.length) return 'No data found';
-    return props.charities.map(this.renderCard);
+    const { handleSubmitDonate } = this.props;
+    return handleSubmitDonate({ charitiesId, charitiesName, amount });
   };
 
   render() {
+    const { isLoading, allDonation, charities } = this.props;
     return (
-      <Wrapper>
+      <HomeWrapper>
+        <Loading active={isLoading} />
         <Title>Omise Tamboon React</Title>
-        <p>All donations: {formatNumber(this.props.allDonation)} USD</p>
-        <CharityList>{this.renderCharityList(this.props)}</CharityList>
-      </Wrapper>
+        <p>All donations: {formatNumber(allDonation)} USD</p>
+        <CharityList charities={charities} onDonate={this.handleDonate} />
+      </HomeWrapper>
     );
   }
 }
+
+Home.propTypes = {
+  initHomeData: PropTypes.func.isRequired,
+  allDonation: PropTypes.number.isRequired,
+  charities: PropTypes.array,
+};
+
+Home.defaultProps = {
+  charities: [],
+};
 
 export default connect(
   state => ({
@@ -89,5 +52,5 @@ export default connect(
     allDonation: state.donate.allDonation,
     isLoading: homeLoadingSelector(state),
   }),
-  { initHomeData, handleSubmitFlow }
+  { initHomeData, handleSubmitDonate }
 )(Home);

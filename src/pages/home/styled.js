@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Button } from 'src/common/styled';
 
-export const Wrapper = styled.div`
+export const HomeWrapper = styled.div`
   text-align: center;
   color: #666d87;
 
@@ -15,7 +15,7 @@ export const Title = styled.h1`
   margin-top: 50px;
 `;
 
-export const CharityList = styled.div`
+export const CharityListWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
