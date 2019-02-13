@@ -66,6 +66,7 @@ export const APICreator = ({
         });
     });
   };
+  thunkAction.TYPE = `${type}`;
   thunkAction.REQUEST = `${apiRequestAction({ type }).type}`;
   thunkAction.SUCCESS = `${apiSuccessAction({ type }).type}`;
   thunkAction.FAILURE = `${apiFailureAction({ type }).type}`;

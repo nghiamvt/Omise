@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import Card from 'src/components/card';
 import { formatNumber } from 'src/common/utils';
 import { Button } from 'src/common/styled';
+import Loading from 'src/components/loading';
+
 import DonateOptions from './donate-options';
-import { initHomeData, handleSubmitFlow } from './widgets';
+import { initHomeData, handleSubmitFlow, homeLoadingSelector } from './widgets';
 import { Wrapper, Title, CharityList } from './styled';
 
 const images = require.context('../../images', true);
@@ -48,7 +51,6 @@ class Home extends React.Component {
         title={charity.name}
         cover={images(`./${charity.image}`)}
       >
-        <Button onClick={() => this.selectCharity(charity.id)}>DONATE</Button>
         {selectedCharity === charity.id && (
           <DonateOptions
             id={charity.id}
@@ -59,13 +61,15 @@ class Home extends React.Component {
             options={[10, 20, 50, 100, 500]}
           />
         )}
+        <Button onClick={() => this.selectCharity(charity.id)}>DONATE</Button>
       </Card>
     );
   };
 
   renderCharityList = props => {
-    // TODO: handle Loading, No data
-    return <CharityList>{props.charities.map(this.renderCard)}</CharityList>;
+    if (props.isLoading) return <Loading />;
+    if (!props.charities.length) return 'No data found';
+    return props.charities.map(this.renderCard);
   };
 
   render() {
@@ -73,7 +77,7 @@ class Home extends React.Component {
       <Wrapper>
         <Title>Omise Tamboon React</Title>
         <p>All donations: {formatNumber(this.props.allDonation)} USD</p>
-        {this.renderCharityList(this.props)}
+        <CharityList>{this.renderCharityList(this.props)}</CharityList>
       </Wrapper>
     );
   }
@@ -83,6 +87,7 @@ export default connect(
   state => ({
     charities: state.donate.charities,
     allDonation: state.donate.allDonation,
+    isLoading: homeLoadingSelector(state),
   }),
   { initHomeData, handleSubmitFlow }
 )(Home);

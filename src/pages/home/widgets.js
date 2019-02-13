@@ -1,7 +1,8 @@
-import { APIGetCreator, APIPostCreator } from '../../store/callApi';
+import { APIGetCreator, APIPostCreator } from 'src/common/api';
 import { URL } from 'src/common/constant';
 import { createReducer } from 'src/store';
 import { showNotification } from 'src/components/modal';
+import { createLoadingSelector } from 'src/common/api';
 
 /**
  * 95% of the time, it's only one reducer/actions pair that ever needs
@@ -29,6 +30,11 @@ export const submitPayment = APIPostCreator({
 export const initHomeData = () => dispatch => {
   return Promise.all([dispatch(loadCharities()), dispatch(loadPayments())]);
 };
+
+export const homeLoadingSelector = createLoadingSelector([
+  loadCharities().TYPE,
+  loadPayments().TYPE,
+]);
 
 export const handleSubmitFlow = ({
   charitiesId,
