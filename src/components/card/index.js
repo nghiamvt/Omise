@@ -10,7 +10,7 @@ const StyledCard = styled.div`
   box-shadow: 0 2px 4px 0 rgba(200, 200, 200, 0.5);
 
   &:hover {
-    box-shadow: 0 13px 22px 0 rgba(200, 200, 200, 0.5);
+    box-shadow: 0 13px 20px 0 rgba(200, 200, 200, 0.5);
   }
 
   h3 {

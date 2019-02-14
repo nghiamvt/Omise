@@ -1,5 +1,5 @@
 export const URL = {
-  BASE_API: 'http://localhost:3001',
+  BASE_API: 'https://omise.herokuapp.com',
 
   CHARITIES: '/charities',
   PAYMENTS: '/payments',

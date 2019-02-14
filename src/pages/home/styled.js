@@ -4,6 +4,8 @@ import { Button } from 'src/common/styled';
 export const HomeWrapper = styled.div`
   text-align: center;
   color: #666d87;
+  max-width: 991px;
+  margin: 50px auto;
 
   .Card {
     position: relative;
@@ -11,14 +13,14 @@ export const HomeWrapper = styled.div`
 `;
 
 export const Title = styled.h1`
-  font-size: 1.5em;
-  margin-top: 50px;
+  font-size: 30px;
 `;
 
 export const CharityListWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 50px;
 
   .Meta {
     display: flex;
@@ -64,6 +66,11 @@ export const StyledDonateOptions = styled.div`
       color: #000;
       background-color: #fff;
       box-shadow: 0 2px 7px 0 rgba(200, 200, 200, 0.5);
+
+      &:hover {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12),
+          0 2px 4px 0 rgba(0, 0, 0, 0.08);
+      }
     }
 
     input:checked + span {

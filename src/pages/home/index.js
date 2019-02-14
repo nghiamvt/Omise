@@ -25,9 +25,9 @@ class Home extends React.Component {
 
   render() {
     const { isLoading, allDonation, charities } = this.props;
+    if (isLoading) return <Loading />;
     return (
       <HomeWrapper>
-        <Loading active={isLoading} />
         <Title>Omise Tamboon React</Title>
         <p>All donations: {formatter.format(allDonation)}</p>
         <CharityList charities={charities} onDonate={this.handleDonate} />
