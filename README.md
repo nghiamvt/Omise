@@ -29,7 +29,7 @@ yarn server
 yarn client
 ```
 
-### Test and report coverage infomation
+### Test coverage
 ```sh
 yarn test:coverage
 ```
