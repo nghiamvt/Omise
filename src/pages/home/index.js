@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { formatNumber } from 'src/common/utils';
+import { formatter } from 'src/common/utils';
 import Loading from 'src/components/loading';
 
 import {
@@ -29,7 +29,7 @@ class Home extends React.Component {
       <HomeWrapper>
         <Loading active={isLoading} />
         <Title>Omise Tamboon React</Title>
-        <p>All donations: {formatNumber(allDonation)} USD</p>
+        <p>All donations: {formatter.format(allDonation)}</p>
         <CharityList charities={charities} onDonate={this.handleDonate} />
       </HomeWrapper>
     );

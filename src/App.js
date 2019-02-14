@@ -2,6 +2,7 @@ import React from 'react';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { Normalize } from 'styled-normalize';
 import { hot } from 'react-hot-loader';
+import { ModalManager } from 'src/components/modal';
 import Home from 'src/pages/home';
 
 const GlobalStyle = createGlobalStyle`
@@ -17,6 +18,7 @@ function App() {
         <Home />
         <Normalize />
         <GlobalStyle />
+        <ModalManager />
       </React.Fragment>
     </ThemeProvider>
   );

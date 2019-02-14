@@ -18,12 +18,9 @@ class CharityList extends React.Component {
   };
 
   handleDonate = params => {
-    const { onDonate } = this.props;
-    if (typeof onDonate === 'function') {
-      onDonate(params).then(() => {
-        this.setState({ selectedCharity: undefined });
-      });
-    }
+    this.props.onDonate(params).then(() => {
+      this.setState({ selectedCharity: undefined });
+    });
   };
 
   renderACharity = charity => {

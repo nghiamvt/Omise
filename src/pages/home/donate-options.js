@@ -5,9 +5,12 @@ import { CloseBtn } from 'src/common/styled';
 import { StyledDonateOptions, FlatButton } from './styled';
 
 export default class DonateOptions extends React.PureComponent {
-  state = {
-    selectedValue: undefined,
-  };
+  constructor() {
+    super();
+    this.state = {
+      selectedValue: undefined,
+    };
+  }
 
   static propTypes = {
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
@@ -27,15 +30,13 @@ export default class DonateOptions extends React.PureComponent {
   };
 
   handleOnSubmit = (id, onSubmit, selectedValue) => {
-    if (typeof onSubmit === 'function') {
-      onSubmit({
-        charitiesId: id,
-        amount: selectedValue,
-      });
-      this.setState({
-        selectedValue: undefined,
-      });
-    }
+    onSubmit({
+      charitiesId: id,
+      amount: selectedValue,
+    });
+    this.setState({
+      selectedValue: undefined,
+    });
   };
 
   render() {
@@ -43,7 +44,7 @@ export default class DonateOptions extends React.PureComponent {
     const { selectedValue } = this.state;
     return (
       <StyledDonateOptions>
-        <CloseBtn onClick={onClose} />
+        <CloseBtn onClick={onClose} className="XClose" />
         <h3>Select the amount to donate (USD)</h3>
         <RadioGroup
           name={`donate_${id}`}

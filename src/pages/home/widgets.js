@@ -3,6 +3,7 @@ import { URL } from 'src/common/constant';
 import { createReducer } from 'src/store';
 import { showNotification } from 'src/components/modal';
 import { createLoadingSelector } from 'src/common/api';
+import { formatter } from 'src/common/utils';
 
 /**
  * 95% of the time, it's only one reducer/actions pair that ever needs
@@ -44,7 +45,7 @@ export const handleSubmitDonate = ({
   return dispatch(submitPayment({ charitiesId, amount })).then(res => {
     const modalProps = {
       title: charitiesName,
-      description: `Thanks for donate ${res.amount} USD`,
+      description: `Thanks for donate ${formatter.format(res.amount)}`,
     };
     dispatch(showNotification({ id: res.id, modalProps, timeout: 4500 }));
   });

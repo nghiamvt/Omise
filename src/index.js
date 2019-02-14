@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 
 import homeReducer from 'src/pages/home/widgets';
-import { modalReducer, ModalManager } from 'src/components/modal';
+import { modalReducer } from 'src/components/modal';
 import { configureStore } from 'src/store';
 import { loadingReducer } from 'src/common/api';
 
@@ -24,7 +24,6 @@ const store = configureStore({
 render(
   <Provider store={store}>
     <App />
-    <ModalManager />
   </Provider>,
   document.getElementById('root')
 );
