@@ -25,7 +25,6 @@
 
 ### Start website
 ```sh
-yarn server
 yarn client
 ```
 
@@ -33,3 +32,10 @@ yarn client
 ```sh
 yarn test:coverage
 ```
+
+## Online version
+
+### Server
+https://omise.herokuapp.com/
+### Client
+https://omise.now.sh/
