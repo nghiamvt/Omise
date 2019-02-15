@@ -1,3 +1,4 @@
+import createSelector from 'selectorator';
 import { APIGetCreator, APIPostCreator } from 'src/common/api';
 import { URL } from 'src/common/constant';
 import { createReducer } from 'src/store';
@@ -11,6 +12,18 @@ import { formatter } from 'src/common/utils';
  * bundled together in an isolated module that is self contained, and
  * can even be packaged easily into a library.
  */
+
+// SELECTORS
+// Calculate the sum raised amount of each charity
+export const charitiesSelector = createSelector(
+  ['donate.charities', 'donate.sumAmountByCharity'],
+  (charities, amountMap) => {
+    return charities.map(item => ({
+      ...item,
+      amount: amountMap[item.id] || 0,
+    }));
+  }
+);
 
 // API Actions
 export const loadCharities = APIGetCreator({
@@ -54,6 +67,7 @@ export const handleSubmitDonate = ({
 const initialState = {
   allDonation: 0,
   charities: [],
+  sumAmountByCharity: [],
 };
 const reducer = createReducer(initialState, {
   [loadCharities().SUCCESS]: (state, action) => {

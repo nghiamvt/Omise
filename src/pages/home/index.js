@@ -9,6 +9,7 @@ import {
   initHomeData,
   handleSubmitDonate,
   homeLoadingSelector,
+  charitiesSelector,
 } from './widgets';
 import { HomeWrapper, Title } from './styled';
 import CharityList from './charity-list';
@@ -25,7 +26,7 @@ class Home extends React.Component {
 
   render() {
     const { isLoading, allDonation, charities } = this.props;
-    if (isLoading) return <Loading />;
+    if (isLoading) return <Loading position="fixed" />;
     return (
       <HomeWrapper>
         <Title>Omise Tamboon React</Title>
@@ -48,8 +49,9 @@ Home.defaultProps = {
 
 export default connect(
   state => ({
-    charities: state.donate.charities,
     allDonation: state.donate.allDonation,
+    amountById: state.donate.sumAmountByCharity,
+    charities: charitiesSelector(state),
     isLoading: homeLoadingSelector(state),
   }),
   { initHomeData, handleSubmitDonate }

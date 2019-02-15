@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
 
 const Wrapper = styled.div`
-  position: fixed;
+  position: ${props => props.position || 'absolute'};
   top: 0;
   left: 0;
   right: 0;

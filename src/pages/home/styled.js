@@ -5,7 +5,7 @@ export const HomeWrapper = styled.div`
   text-align: center;
   color: #666d87;
   max-width: 991px;
-  margin: 80px auto;
+  margin: 60px auto;
 
   .Card {
     position: relative;
@@ -20,13 +20,24 @@ export const CharityListWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 50px;
 
   .Meta {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
     padding: 15px;
+
+    h3 {
+      margin-bottom: 10px;
+      width: 100%;
+      text-align: left;
+    }
+
+    .Extra {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
 `;
 

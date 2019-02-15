@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Button } from 'src/common/styled';
+import { formatter } from 'src/common/utils';
 import Card from 'src/components/card';
+import Loading from 'src/components/loading';
 
 import DonateOptions from './donate-options';
 import { CharityListWrapper } from './styled';
@@ -11,6 +13,7 @@ const images = require.context('../../images', true);
 class CharityList extends React.Component {
   state = {
     selectedCharity: undefined,
+    isLoading: undefined,
   };
 
   selectCharity = id => {
@@ -18,13 +21,15 @@ class CharityList extends React.Component {
   };
 
   handleDonate = params => {
+    this.setState({ isLoading: params.charitiesId });
     this.props.onDonate(params).then(() => {
       this.setState({ selectedCharity: undefined });
+      this.setState({ isLoading: undefined });
     });
   };
 
   renderACharity = charity => {
-    const { selectedCharity } = this.state;
+    const { selectedCharity, isLoading } = this.state;
     return (
       <Card
         key={charity.id}
@@ -41,7 +46,13 @@ class CharityList extends React.Component {
             options={[10, 20, 50, 100, 500]}
           />
         )}
-        <Button onClick={() => this.selectCharity(charity.id)}>DONATE</Button>
+        <Loading active={isLoading === charity.id} />
+        <div className="Extra">
+          <div>
+            <b>{formatter.format(charity.amount)}</b> raised
+          </div>
+          <Button onClick={() => this.selectCharity(charity.id)}>DONATE</Button>
+        </div>
       </Card>
     );
   };
