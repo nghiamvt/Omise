@@ -5,7 +5,7 @@ export const HomeWrapper = styled.div`
   text-align: center;
   color: #666d87;
   max-width: 991px;
-  margin: 50px auto;
+  margin: 80px auto;
 
   .Card {
     position: relative;

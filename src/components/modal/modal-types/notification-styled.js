@@ -48,7 +48,7 @@ export const Wrapper = styled.div`
 
 export const Title = styled.div`
   color: #3e3e3e;
-  font-weight: 700;
+  font-weight: 600;
   padding-bottom: 10px;
 `;
 

@@ -10,26 +10,35 @@
   - Amount in all donations should be displayed correctly despite users close and come back later.
   - Database (db.json) should have the new valid data when paid.
 - [x] Production quality code is expected
-- [x] Unit tests is a must  
+- [x] Unit tests is a must
 - [x] Refactor the code to be more readable and enhance reusability.
 - [x] Use only [styled-component](https://www.styled-components.com/) for styling part.
 - [x] Display well in most modern browser (Google Chrome, Safari, Firefox).
 
 #### Bonus
+
 - [x] Supporting different screen sizes (responsive).
 - [x] Write unit tests with [jest](https://facebook.github.io/jest/).
 - [x] Improve the design to have better UI and UX.
 
-
 ## How to use
 
-### Start website
+### Start website (Offline)
+
 ```sh
 yarn server
 yarn client
 ```
 
 ### Test coverage
+
 ```sh
 yarn test:coverage
 ```
+
+## Online version
+
+Sever and client are separately deployed to two popular hosting services.
+
+- Client: https://omise.now.sh/
+- Server: https://omise.herokuapp.com/

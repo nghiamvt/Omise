@@ -12,8 +12,7 @@
     "build": "webpack --mode production",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "now-build": "yarn build"
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "classnames": "^2.2.6",
