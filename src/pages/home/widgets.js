@@ -58,7 +58,7 @@ export const handleSubmitDonate = ({
   return dispatch(submitPayment({ charitiesId, amount })).then(res => {
     const modalProps = {
       title: charitiesName,
-      description: `Thanks for donate ${formatter.format(res.amount)}`,
+      description: `Thanks for donating ${formatter.format(res.amount)}`,
     };
     dispatch(showNotification({ id: res.id, modalProps, timeout: 4500 }));
   });

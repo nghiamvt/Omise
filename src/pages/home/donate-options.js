@@ -45,7 +45,7 @@ export default class DonateOptions extends React.PureComponent {
     return (
       <StyledDonateOptions>
         <CloseBtn onClick={onClose} className="XClose" />
-        <h3>Select the amount to donate (USD)</h3>
+        <h4>Select the amount to donate (USD)</h4>
         <RadioGroup
           name={`donate_${id}`}
           onChange={this.handleChange}
