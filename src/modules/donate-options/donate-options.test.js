@@ -1,6 +1,6 @@
-import React from 'react';
-import { render, fireEvent } from 'react-testing-library';
 import { StateMock } from '@react-mock/state';
+import React from 'react';
+import { fireEvent, render } from 'react-testing-library';
 import DonateOptions from './donate-options';
 
 describe('DonateOptions Component', () => {

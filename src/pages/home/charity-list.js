@@ -1,12 +1,10 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-
+import React from 'react';
 import { Button } from 'src/common/styled';
 import { formatter } from 'src/common/utils';
 import Card from 'src/components/card';
 import Loading from 'src/components/loading';
-
-import DonateOptions from './donate-options';
+import DonateOptions from 'src/modules/donate-options/donate-options';
 import { CharityListWrapper } from './styled';
 
 const images = require.context('../../images', true);
@@ -23,8 +21,7 @@ class CharityList extends React.Component {
   handleDonate = params => {
     this.setState({ isLoading: params.charitiesId });
     this.props.onDonate(params).then(() => {
-      this.setState({ selectedCharity: undefined });
-      this.setState({ isLoading: undefined });
+      this.setState({ selectedCharity: undefined, isLoading: undefined });
     });
   };
 
@@ -39,35 +36,31 @@ class CharityList extends React.Component {
         {selectedCharity === charity.id && (
           <DonateOptions
             id={charity.id}
-            onClose={() => this.selectCharity(undefined)}
+            onClose={() => this.selectCharity()}
             onSubmit={params =>
               this.handleDonate({ ...params, charitiesName: charity.name })
             }
             options={[10, 20, 50, 100, 500]}
           />
         )}
-        <Loading active={isLoading === charity.id} />
         <div className="Extra">
           <div>
             <b>{formatter.format(charity.amount)}</b> raised
           </div>
           <Button onClick={() => this.selectCharity(charity.id)}>DONATE</Button>
         </div>
+        <Loading active={isLoading === charity.id} />
       </Card>
     );
   };
 
-  renderComponent = props => {
-    if (!props.charities.length) return 'No data found';
-    return props.charities.map(this.renderACharity);
+  renderComponent = () => {
+    if (!this.props.charities.length) return 'No data found';
+    return this.props.charities.map(this.renderACharity);
   };
 
   render() {
-    return (
-      <CharityListWrapper>
-        {this.renderComponent(this.props)}
-      </CharityListWrapper>
-    );
+    return <CharityListWrapper>{this.renderComponent()}</CharityListWrapper>;
   }
 }
 

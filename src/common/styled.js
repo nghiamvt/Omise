@@ -49,3 +49,11 @@ export const CloseBtn = styled.div`
     transform: rotate(-45deg);
   }
 `;
+
+export const FlatButton = styled(Button)`
+  width: 100%;
+  border-radius: 0 0 3px 3px;
+  position: absolute;
+  bottom: 0;
+  padding: 25px;
+`;

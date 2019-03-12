@@ -1,18 +1,16 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { connect } from 'react-redux';
-
 import { formatter } from 'src/common/utils';
 import Loading from 'src/components/loading';
-
+import CharityList from './charity-list';
+import { StyledHome } from './styled';
 import {
-  initHomeData,
+  charitiesSelector,
   handleSubmitDonate,
   homeLoadingSelector,
-  charitiesSelector,
+  initHomeData,
 } from './widgets';
-import { HomeWrapper, Title } from './styled';
-import CharityList from './charity-list';
 
 class Home extends React.Component {
   componentDidMount() {
@@ -28,11 +26,11 @@ class Home extends React.Component {
     const { isLoading, allDonation, charities } = this.props;
     if (isLoading) return <Loading position="fixed" />;
     return (
-      <HomeWrapper>
-        <Title>Omise Tamboon React</Title>
+      <StyledHome>
+        <h1>Omise Tamboon React</h1>
         <p>All donations: {formatter.format(allDonation)}</p>
         <CharityList charities={charities} onDonate={this.handleDonate} />
-      </HomeWrapper>
+      </StyledHome>
     );
   }
 }

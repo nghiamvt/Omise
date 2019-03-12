@@ -1,10 +1,13 @@
 import createSelector from 'selectorator';
-import { APIGetCreator, APIPostCreator } from 'src/common/api';
+import {
+  APIGetCreator,
+  APIPostCreator,
+  createLoadingSelector,
+} from 'src/common/api';
 import { URL } from 'src/common/constant';
-import { createReducer } from 'src/store';
-import { showNotification } from 'src/components/modal';
-import { createLoadingSelector } from 'src/common/api';
 import { formatter } from 'src/common/utils';
+import { showNotification } from 'src/components/modal';
+import { createReducer } from 'src/store';
 
 /**
  * 95% of the time, it's only one reducer/actions pair that ever needs
@@ -17,12 +20,11 @@ import { formatter } from 'src/common/utils';
 // Calculate the sum raised amount of each charity
 export const charitiesSelector = createSelector(
   ['donate.charities', 'donate.sumAmountByCharity'],
-  (charities, amountMap) => {
-    return charities.map(item => ({
+  (charities, amountMap) =>
+    charities.map(item => ({
       ...item,
       amount: amountMap[item.id] || 0,
-    }));
-  }
+    }))
 );
 
 // API Actions
