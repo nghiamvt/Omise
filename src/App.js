@@ -1,9 +1,11 @@
 import React from 'react';
+import { hot } from 'react-hot-loader';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { ModalManager } from 'src/components/modal';
+import Search from 'src/pages/search';
+import Detail from 'src/pages/search/detail';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { Normalize } from 'styled-normalize';
-import { hot } from 'react-hot-loader';
-import { ModalManager } from 'src/components/modal';
-import Home from 'src/pages/home';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -15,7 +17,10 @@ function App() {
   return (
     <ThemeProvider theme={{ fontFamily: 'Open Sans' }}>
       <React.Fragment>
-        <Home />
+        <Router>
+          <Route path="/" exact component={Search} />
+          <Route path="/detail" component={Detail} />
+        </Router>
         <Normalize />
         <GlobalStyle />
         <ModalManager />

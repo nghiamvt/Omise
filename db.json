@@ -74,5 +74,24 @@
     {
       "id": 8
     }
+  ],
+  "answers": [
+    {
+      "title": "Morning Glory",
+      "answer": "Stir fried Morning Glory is a common Chinese dish"
+    },
+    {
+      "title": "Morning best foods"
+    },
+    {
+      "title": "Morning hangover cures"
+    }
+  ],
+  "restaurants": [
+    {
+      "title": "Morning Food Centre",
+      "address": "1 Kadayanallur St, Singapore 069184",
+      "imageUrl": "https://examplecdn.com/12345.jpg"
+    }
   ]
 }
